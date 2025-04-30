@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV Data Viewer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="light"> <!-- Body gets data-theme="light" or data-theme="dark" -->
+    <div class="header-container">
+        <h1>Stock Data Viewer</h1>
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Toggle theme">🌓</button>
+    </div>
+
+    <div class="container">
+         <!-- Status message area with Spinner -->
+         <div id="statusContainer" class="status-container">
+             <div id="spinner" class="spinner" style="display: none;"></div> <!-- Spinner hidden initially -->
+             <span id="statusText" class="status-text">Initializing...</span> <!-- Text message -->
+         </div>
+
+        <div class="main-content">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <h2>Companies / Indices</h2>
+                <input type="search" id="searchBar" placeholder="Search list..." disabled>
+                <ul id="companyList" class="disabled-list">
+                     <!-- Populated by JavaScript -->
+                </ul>
+            </div>
+
+            <!-- Main Details Area -->
+            <div class="details">
+                <h2 id="selectedCompanyName">Select an item from the list</h2>
+
+                <!-- Controls Row -->
+                <div class="controls-row">
+                    <!-- Chart Type Selector -->
+                    <div class="chart-type-selector">
+                        <label for="chartTypeSelect">Chart Type:</label>
+                        <select id="chartTypeSelect" disabled>
+                            <option value="line" selected>Line (OHLC)</option>
+                            <!-- <option value="candlestick">Candlestick (OHLC)</option> --> <!-- REMOVED -->
+                            <option value="bar">Bar (Close Price)</option>
+                        </select>
+                    </div>
+
+                    <!-- Preset Date Range Buttons -->
+                    <div id="presetDateRangeSelector" class="preset-date-selector">
+                        <button class="preset-btn" data-range="1M" disabled>1M</button>
+                        <button class="preset-btn" data-range="6M" disabled>6M</button>
+                        <button class="preset-btn" data-range="YTD" disabled>YTD</button>
+                        <button class="preset-btn" data-range="1Y" disabled>1Y</button>
+                        <button class="preset-btn" data-range="5Y" disabled>5Y</button>
+                        <button class="preset-btn active" data-range="MAX" disabled>Max</button>
+                    </div>
+                </div>
+
+                 <!-- Reset Zoom Button -->
+                 <div class="chart-actions">
+                    <button id="resetZoomBtn" class="action-btn" disabled title="Reset chart zoom level">Reset Zoom</button>
+                 </div>
+
+                <!-- Chart Area -->
+                <div id="chartContainer" class="chart-container" style="display: none;">
+                    <canvas id="dataChart"></canvas>
+                </div>
+
+                <!-- Message Area -->
+                <div id="noDataMessage" class="message" style="display: none;">
+                     <!-- Populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/date-fns@3.6.0/cdn.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js" defer></script>
+    <!-- Financial Chart Plugin REMOVED -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial@0.2.0/dist/chartjs-chart-financial.min.js" defer></script> -->
+    <!-- Zoom Plugin Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js" defer></script>
+
+    <!-- Your Custom Scripts -->
+    <script type="module" src="main.js"></script>
+</body>
+</html>
